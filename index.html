@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เว็บไซต์ฝากรูป</title>
+    <title>เว็บไซต์แสดงผลงาน</title>
     <!-- เพิ่มไอคอนเว็บไซต์ -->
-    <link rel="icon" href="picture/pic1.png" type="image/png">
+    <link rel="icon" href="picture/pic1.jpg" type="image/png">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@
             background-position: center; /* ทำให้ภาพอยู่ตรงกลาง */
             margin: 0;
             padding: 0;
-            color: white; /* เปลี่ยนสีตัวอักษรให้เป็นสีขาว เพื่อให้มองเห็นได้ชัด */
+            color: white; /* เปลี่ยนสีตัวอักษรให้เป็นสีขาว */
         }
         .container {
             width: 80%;
@@ -27,45 +27,204 @@
             background-color: rgba(51, 51, 51, 0.8); /* พื้นหลังโปร่งแสง */
             color: white;
         }
-        .upload-form {
+
+        /* เมนูนำทาง */
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        nav a:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        /* สไตล์สำหรับ Dropdown */
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            min-width: 160px;
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .portfolio {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 คอลัมน์ */
+            gap: 20px;
+        }
+        .portfolio-item {
             background-color: rgba(255, 255, 255, 0.9); /* พื้นหลังโปร่งแสง */
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-        input[type="file"] {
-            padding: 10px;
-            font-size: 16px;
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
         }
-        button {
+        .portfolio-item h3 {
+            margin-top: 10px;
+            color: #333;
+        }
+        .portfolio-item p {
+            color: #555;
+        }
+
+        /* สไตล์สำหรับไอคอนติดต่อ */
+        .contact-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .contact-icon:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        /* สไตล์สำหรับหน้าต่างติดต่อ */
+        .contact-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .contact-modal-content {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .contact-modal h2 {
+            margin-bottom: 20px;
+        }
+        .contact-modal p {
+            margin: 10px 0;
+        }
+        .close-btn {
+            margin-top: 20px;
             padding: 10px 20px;
-            font-size: 16px;
-            background-color: #333;
+            background-color: rgba(255, 0, 0, 0.8);
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #555;
+        .close-btn:hover {
+            background-color: rgba(255, 0, 0, 1);
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>เว็บไซต์ฝากรูป</h1>
-        <p>ฝากรูปของคุณเพื่อแชร์กับคนอื่นๆ</p>
+        <h1>เว็บไซต์แสดงผลงาน</h1>
+        <p>แสดงผลงานที่ดีที่สุดของฉัน</p>
     </div>
     
+    <!-- เมนูนำทาง -->
+    <nav>
+        <a href="#">หน้าหลัก</a>
+        <a href="#">โครงการ</a>
+        <div class="dropdown">
+            <a href="#">โครงการพิเศษ</a>
+            <div class="dropdown-content">
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="upload-form">
-            <h2>อัพโหลดรูปภาพ</h2>
-            <form action="/upload" method="POST" enctype="multipart/form-data">
-                <input type="file" name="image" accept="image/*" required><br><br>
-                <button type="submit">อัพโหลด</button>
-            </form>
+        <div class="portfolio">
+            <div class="portfolio-item">
+                <img src="picture/tuk1.jpg" alt="ผลงาน 1">
+                <h3>ผลงาน 1</h3>
+                <p>คำอธิบายสั้นๆ เกี่ยวกับผลงานนี้</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="picture/tuk2.jpg" alt="ผลงาน 2">
+                <h3>ผลงาน 2</h3>
+                <p>คำอธิบายสั้นๆ เกี่ยวกับผลงานนี้</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="picture/tuk3.jpg" alt="ผลงาน 3">
+                <h3>ผลงาน 3</h3>
+                <p>คำอธิบายสั้นๆ เกี่ยวกับผลงานนี้</p>
+            </div>
         </div>
     </div>
+
+    <!-- ไอคอนช่องทางติดต่อ -->
+    <div class="contact-icon" onclick="toggleContactModal()">📞</div>
+
+    <!-- หน้าต่างติดต่อ -->
+    <div class="contact-modal" id="contactModal">
+        <div class="contact-modal-content">
+            <h2>ช่องทางติดต่อ</h2>
+            <p>📞 เบอร์โทร: 012-345-6789</p>
+            <p>📱 ไอดีไลน์: @exampleID</p>
+            <button class="close-btn" onclick="toggleContactModal()">ปิด</button>
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันเปิด/ปิดหน้าต่างติดต่อ
+        function toggleContactModal() {
+            var modal = document.getElementById("contactModal");
+            if (modal.style.display === "flex") {
+                modal.style.display = "none";
+            } else {
+                modal.style.display = "flex";
+            }
+        }
+    </script>
 </body>
 </html>
