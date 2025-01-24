@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรแกรมแชท</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .chat-container {
+            width: 400px;
+            height: 500px;
+            border: 1px solid #ccc;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+        .chat-box {
+            flex: 1;
+            padding: 10px;
+            overflow-y: scroll;
+            border-bottom: 1px solid #ccc;
+            background-color: #fafafa;
+        }
+        .input-area {
+            display: flex;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+        .input-area button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .input-area button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .user-message {
+            text-align: right;
+            color: #007bff;
+        }
+        .friend-message {
+            text-align: left;
+            color: #28a745;
+        }
+        .message span {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .icon-selector {
+            margin: 10px 0;
+        }
+        .icon-selector img {
+            width: 30px;
+            height: 30px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">
+            <h2>ตั้งค่าชื่อและไอคอน</h2>
+            <div>
+                <label for="userName">ชื่อผู้ใช้: </label>
+                <input type="text" id="userName" placeholder="กรอกชื่อ" />
+            </div>
+            <div class="icon-selector">
+                <span>เลือกไอคอน: </span>
+                <img src="https://via.placeholder.com/30/007bff/ffffff?text=😊" alt="Icon1" onclick="changeIcon('😊')" />
+                <img src="https://via.placeholder.com/30/28a745/ffffff?text=😎" alt="Icon2" onclick="changeIcon('😎')" />
+                <img src="https://via.placeholder.com/30/ff6347/ffffff?text=😜" alt="Icon3" onclick="changeIcon('😜')" />
+            </div>
+        </div>
+
+        <div class="chat-box" id="chatBox"></div>
+
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="พิมพ์ข้อความ..." />
+            <button onclick="sendMessage()">ส่ง</button>
+        </div>
+    </div>
+
+    <script>
+        var userName = "คุณ";
+        var userIcon = "😊";
+
+        function changeIcon(icon) {
+            userIcon = icon;
+        }
+
+        function sendMessage() {
+            var message = document.getElementById("messageInput").value;
+            var name = document.getElementById("userName").value.trim();
+            if (name !== "") {
+                userName = name;
+            }
+
+            if (message.trim() !== "") {
+                displayMessage(message, userName, userIcon);
+                document.getElementById("messageInput").value = ""; // Clear input field
+                setTimeout(() => {
+                    displayMessage("ตอบกลับจากเพื่อน: " + message, "เพื่อน", "😎");
+                }, 1000);
+            }
+        }
+
+        function displayMessage(message, sender, icon) {
+            var chatBox = document.getElementById("chatBox");
+            var newMessage = document.createElement("div");
+            var senderName = sender;
+            var messageClass = sender === "คุณ" ? "user-message" : "friend-message";
+
+            newMessage.classList.add("message", messageClass);
+            newMessage.innerHTML = `<span>${icon} ${senderName}:</span> ${message}`;
+            chatBox.appendChild(newMessage);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+        }
+    </script>
+</body>
+</html>
